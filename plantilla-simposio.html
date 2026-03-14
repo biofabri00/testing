@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simposio / Evento — Plantilla</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+  <style>
+    /* =============================================
+       VARIABLES — Modifica aquí los colores principales
+    ============================================= */
+    :root {
+      --primary: #1a3a4a;       /* Color principal oscuro */
+      --accent: #2fbb8f;        /* Color de acento / botones */
+      --accent-light: #e0f7f0;  /* Fondo suave del acento */
+      --bg: #f8f6f1;            /* Fondo general */
+      --card: #ffffff;          /* Fondo tarjetas */
+      --text: #1a1a1a;          /* Texto principal */
+      --muted: #6b7280;         /* Texto secundario */
+      --border: rgba(0,0,0,0.08);
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --radius: 14px;
+      --nav-h: 68px;
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* =============================================
+       BARRA DE AVISO — Modifica el texto del aviso
+    ============================================= */
+    .topbar {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 10px 1rem;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+    .topbar a { color: var(--accent); font-weight: 500; margin-left: 6px; }
+
+    /* =============================================
+       NAVEGACIÓN
+    ============================================= */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(248,246,241,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      height: var(--nav-h);
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 600; color: var(--primary);
+    }
+    .nav-logo .logo-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 18px;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 0.25rem;
+    }
+    .nav-links a {
+      padding: 6px 14px; border-radius: 8px;
+      font-size: 14px; font-weight: 400;
+      color: var(--muted);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { background: var(--accent-light); color: var(--primary); }
+    .btn-nav {
+      background: var(--accent);
+      color: #fff !important;
+      border-radius: 8px;
+      padding: 8px 18px !important;
+      font-weight: 500 !important;
+      font-size: 14px !important;
+      transition: opacity 0.15s !important;
+    }
+    .btn-nav:hover { opacity: 0.85; background: var(--accent) !important; }
+    .lang-toggle {
+      font-size: 13px; font-weight: 500;
+      color: var(--muted); cursor: pointer;
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 5px 10px;
+      transition: border-color 0.15s;
+    }
+    .lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .hamburger { display: none; cursor: pointer; background: none; border: none; padding: 6px; }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); margin: 5px 0;
+      transition: transform 0.2s;
+    }
+
+    /* =============================================
+       HERO — Modifica título, subtítulo, fechas
+    ============================================= */
+    .hero {
+      max-width: 1100px; margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--accent-light); color: var(--accent);
+      font-size: 13px; font-weight: 500;
+      padding: 6px 14px; border-radius: 20px; margin-bottom: 1.5rem;
+    }
+    .hero-badge .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      color: var(--primary);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p {
+      font-size: 1.05rem; color: var(--muted);
+      max-width: 480px; margin-bottom: 2rem;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--primary); color: #fff;
+      padding: 13px 28px; border-radius: 10px;
+      font-size: 15px; font-weight: 500;
+      transition: opacity 0.15s; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-secondary {
+      background: transparent; color: var(--primary);
+      padding: 12px 28px; border-radius: 10px;
+      font-size: 15px; font-weight: 400;
+      border: 1.5px solid var(--border);
+      transition: border-color 0.15s; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--primary); }
+
+    .hero-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+    }
+    .hero-card .event-date {
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 600;
+      color: var(--primary); margin-bottom: 0.25rem;
+    }
+    .hero-card .event-subtitle { font-size: 14px; color: var(--muted); margin-bottom: 1.5rem; }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .stat-item {
+      background: var(--bg);
+      border-radius: 10px; padding: 1rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 600; color: var(--primary);
+    }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .divider-dots { display: flex; gap: 6px; margin: 1.5rem 0; }
+    .divider-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--border); }
+    .divider-dots span:first-child { background: var(--accent); }
+
+    /* =============================================
+       SECCIÓN: ACERCA DE
+    ============================================= */
+    .section {
+      max-width: 1100px; margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+    .section-tag {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300; color: var(--primary);
+      line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-lead { font-size: 1.05rem; color: var(--muted); max-width: 600px; margin-bottom: 3rem; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; line-height: 1.8; }
+    .feature-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 1rem; background: var(--card);
+      border: 1px solid var(--border); border-radius: 10px;
+    }
+    .feature-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--accent-light); color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 18px;
+    }
+    .feature-item h4 { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+    .feature-item p { font-size: 13px; color: var(--muted); }
+
+    blockquote {
+      margin-top: 2rem;
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.25rem;
+      background: var(--accent-light);
+      border-radius: 0 10px 10px 0;
+      font-family: var(--font-display);
+      font-size: 1rem; font-style: italic;
+      color: var(--primary);
+      line-height: 1.6;
+    }
+
+    .about-image {
+      border-radius: var(--radius); overflow: hidden;
+      background: var(--primary);
+      min-height: 320px;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.3);
+      font-size: 14px; flex-direction: column; gap: 8px;
+    }
+    .about-image .material-icons-round { font-size: 48px; }
+
+    /* =============================================
+       SECCIÓN: PONENTES / SPEAKERS
+    ============================================= */
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+    .speaker-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .speaker-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .speaker-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--primary);
+      margin: 0 auto 0.75rem;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.4rem; color: #fff; font-weight: 300;
+    }
+    /* Diferentes colores de avatar — puedes cambiarlos */
+    .speaker-card:nth-child(2) .speaker-avatar { background: #2fbb8f; }
+    .speaker-card:nth-child(3) .speaker-avatar { background: #c084fc; }
+    .speaker-card:nth-child(4) .speaker-avatar { background: #fb923c; }
+    .speaker-card:nth-child(5) .speaker-avatar { background: #38bdf8; }
+    .speaker-card:nth-child(6) .speaker-avatar { background: #f43f5e; }
+    .speaker-name { font-weight: 500; font-size: 15px; margin-bottom: 3px; }
+    .speaker-org { font-size: 12px; color: var(--muted); }
+    .speaker-country {
+      display: inline-block; margin-top: 8px;
+      font-size: 11px; background: var(--bg);
+      padding: 3px 10px; border-radius: 20px; color: var(--muted);
+    }
+
+    /* =============================================
+       SECCIÓN: PROGRAMA / AGENDA
+    ============================================= */
+    .agenda { display: flex; flex-direction: column; gap: 1rem; }
+    .agenda-day {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .agenda-day-header {
+      background: var(--primary); color: #fff;
+      padding: 0.75rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .agenda-day-header h3 { font-family: var(--font-display); font-weight: 300; font-size: 1.1rem; }
+    .agenda-day-header span { font-size: 13px; opacity: 0.6; }
+    .agenda-item {
+      display: grid; grid-template-columns: 90px 1fr;
+      gap: 1rem; padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .agenda-item:last-child { border-bottom: none; }
+    .agenda-time { font-size: 13px; color: var(--muted); padding-top: 2px; }
+    .agenda-talk h4 { font-size: 15px; font-weight: 500; margin-bottom: 3px; }
+    .agenda-talk p { font-size: 13px; color: var(--muted); }
+    .agenda-tag {
+      display: inline-block; margin-top: 6px;
+      font-size: 11px; font-weight: 500;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .tag-keynote { background: #fef3c7; color: #92400e; }
+    .tag-workshop { background: #dbeafe; color: #1e40af; }
+    .tag-panel { background: #f0fdf4; color: #166534; }
+
+    /* =============================================
+       SECCIÓN: EVENTOS / ACTIVIDADES
+    ============================================= */
+    .events-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .event-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .event-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.09); transform: translateY(-2px); }
+    .event-img {
+      height: 160px; background: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.3); font-size: 48px;
+    }
+    .event-card:nth-child(2) .event-img { background: #1e3a5f; }
+    .event-body { padding: 1.25rem; }
+    .event-meta { display: flex; gap: 8px; margin-bottom: 0.75rem; flex-wrap: wrap; }
+    .event-pill {
+      font-size: 11px; font-weight: 500;
+      padding: 3px 10px; border-radius: 20px;
+      background: var(--accent-light); color: var(--accent);
+    }
+    .event-body h3 { font-size: 16px; font-weight: 500; margin-bottom: 6px; }
+    .event-body p { font-size: 13px; color: var(--muted); margin-bottom: 1rem; }
+    .event-link { font-size: 13px; color: var(--accent); font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+
+    /* =============================================
+       SECCIÓN: EQUIPO
+    ============================================= */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.25rem;
+    }
+    .team-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+    .team-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--border);
+      margin: 0 auto 0.75rem;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1.2rem; color: var(--primary);
+    }
+    .team-name { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+    .team-role { font-size: 12px; color: var(--muted); }
+
+    /* =============================================
+       CTA FINAL
+    ============================================= */
+    .cta-section {
+      background: var(--primary);
+      border-radius: var(--radius);
+      padding: 4rem 2rem;
+      text-align: center;
+      margin: 0 1.5rem 5rem;
+      max-width: 1100px;
+      margin-left: auto; margin-right: auto;
+    }
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 300; color: #fff; margin-bottom: 1rem;
+    }
+    .cta-section p { color: rgba(255,255,255,0.6); margin-bottom: 2rem; font-size: 1rem; }
+    .btn-white {
+      background: #fff; color: var(--primary);
+      padding: 13px 32px; border-radius: 10px;
+      font-size: 15px; font-weight: 500;
+      display: inline-block; transition: opacity 0.15s;
+    }
+    .btn-white:hover { opacity: 0.9; }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 1.5rem 1.5rem;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem;
+    }
+    .footer-brand .logo { font-family: var(--font-display); font-size: 1.1rem; color: var(--primary); font-weight: 600; margin-bottom: 0.75rem; }
+    .footer-brand p { font-size: 13px; color: var(--muted); max-width: 280px; line-height: 1.7; }
+    footer h4 { font-size: 13px; font-weight: 500; margin-bottom: 1rem; }
+    footer ul li a { font-size: 13px; color: var(--muted); padding: 4px 0; display: block; transition: color 0.15s; }
+    footer ul li a:hover { color: var(--accent); }
+    footer ul li { margin-bottom: 4px; }
+    .footer-bottom {
+      max-width: 1100px; margin: 0 auto;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; color: var(--muted);
+    }
+
+    /* =============================================
+       SEPARADOR DE SECCIÓN
+    ============================================= */
+    .section-divider {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; padding: 3rem 1.25rem 2rem; gap: 2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .events-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: var(--nav-h); left: 0; right: 0;
+        background: var(--bg); border-bottom: 1px solid var(--border);
+        padding: 1rem 1.5rem;
+      }
+      .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================
+       BARRA DE AVISO SUPERIOR
+       Cambia el texto o quítala si no la necesitas
+  ============================= -->
+  <div class="topbar">
+    🔴 ¡Estamos EN VIVO! &nbsp;
+    <a href="https://youtube.com" target="_blank">Únete a la transmisión en YouTube →</a>
+  </div>
+
+  <!-- ============================
+       NAVEGACIÓN
+       Modifica los enlaces del menú aquí
+  ============================= -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="logo-icon">
+          <span class="material-icons-round" style="font-size:20px">science</span>
+        </div>
+        <!-- Nombre de tu organización -->
+        Mi Organización
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#inicio">Inicio</a>
+        <a href="#programa">Programa</a>
+        <a href="#ponentes">Ponentes</a>
+        <a href="#equipo">Equipo</a>
+        <!-- Botón de registro — cambia el href por tu Google Form u otro link -->
+        <a href="https://forms.google.com" class="btn-nav" target="_blank">Registrate</a>
+        <div class="lang-toggle">ES / EN</div>
+      </div>
+      <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================
+       SECCIÓN: HERO
+       Modifica: título, descripción, fechas, estadísticas
+  ============================= -->
+  <section id="inicio">
+    <div class="hero">
+      <div class="hero-content">
+        <!-- Badge de estado — cámbialo o quítalo -->
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Registro Abierto
+        </div>
+
+        <!-- TÍTULO PRINCIPAL -->
+        <h1>I Simposio Internacional<br/>de <em>Biología Sintética</em></h1>
+
+        <!-- DESCRIPCIÓN -->
+        <p>Únete al primer simposio internacional organizado por nuestra comunidad. Conéctate con líderes, investigadores y entusiastas de todo el mundo.</p>
+
+        <div class="hero-ctas">
+          <!-- Botón principal -->
+          <a href="https://forms.google.com" class="btn-primary" target="_blank">Registrate Ahora</a>
+          <!-- Botón secundario -->
+          <a href="#about" class="btn-secondary">Ver Detalles</a>
+        </div>
+      </div>
+
+      <!-- TARJETA LATERAL CON INFO DEL EVENTO -->
+      <div class="hero-card">
+        <!-- FECHA DEL EVENTO -->
+        <div class="event-date">Mar 5–7, 2026</div>
+        <div class="event-subtitle">Lima, Perú · Evento Virtual</div>
+        <div class="divider-dots">
+          <span></span><span></span><span></span><span></span>
+        </div>
+
+        <!-- ESTADÍSTICAS — Cambia los números y etiquetas -->
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-num">12+</div>
+            <div class="stat-label">Ponentes Internacionales</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">7</div>
+            <div class="stat-label">Países Representados</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Días de Evento</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">ES/EN</div>
+            <div class="stat-label">Bilingüe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================
+       SECCIÓN: ACERCA DE
+       Modifica el texto descriptivo y las características
+  ============================= -->
+  <section id="about">
+    <div class="section">
+      <p class="section-tag">Acerca del Simposio</p>
+      <h2>Bienvenido a nuestra comunidad</h2>
+      <p class="section-lead">Un espacio de conocimiento, innovación y colaboración para la región latinoamericana.</p>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <!-- DESCRIPCIÓN PRINCIPAL — Cambia este texto -->
+          <p>Nuestra organización es una comunidad liderada por estudiantes dedicada a promover y democratizar la ciencia en Lima, Perú y Latinoamérica. Nuestra visión es integrar a jóvenes investigadores a esta prometedora área científica.</p>
+          <p>Con este simposio buscamos reunir a expertos internacionales con estudiantes y entusiastas de toda la región, generando un espacio de aprendizaje horizontal y colaboración genuina.</p>
+
+          <!-- LISTA DE CARACTERÍSTICAS — Modifica íconos, títulos y descripciones -->
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <span class="material-icons-round">school</span>
+              </div>
+              <div>
+                <h4>Educación</h4>
+                <p>Talleres y foros de discusión para difundir el conocimiento.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <span class="material-icons-round">groups</span>
+              </div>
+              <div>
+                <h4>Colaboración</h4>
+                <p>Asociaciones interdisciplinarias entre instituciones latinoamericanas.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CITA DESTACADA -->
+          <blockquote>
+            "Nuestro objetivo es inspirar a la próxima generación de investigadores para resolver problemas locales con tecnologías globales."
+          </blockquote>
+        </div>
+
+        <!-- IMAGEN — Reemplaza el div por un <img src="tu-imagen.jpg"> -->
+        <div class="about-image">
+          <span class="material-icons-round">image</span>
+          <span style="font-family:var(--font-body);font-size:12px">Tu imagen aquí (1200×800 px)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================
+       SECCIÓN: PONENTES
+       Añade o quita tarjetas según tus ponentes
+  ============================= -->
+  <section id="ponentes">
+    <div class="section">
+      <p class="section-tag">Ponentes</p>
+      <h2>Expertos internacionales</h2>
+      <p class="section-lead">Investigadores y profesionales de más de 7 países.</p>
+
+      <div class="speakers-grid">
+        <!-- TARJETA DE PONENTE — Duplica este bloque para agregar más -->
+        <div class="speaker-card">
+          <div class="speaker-avatar">AB</div>
+          <div class="speaker-name">Ana Bermúdez</div>
+          <div class="speaker-org">Universidad de Buenos Aires</div>
+          <span class="speaker-country">🇦🇷 Argentina</span>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">CR</div>
+          <div class="speaker-name">Carlos Ríos</div>
+          <div class="speaker-org">MIT</div>
+          <span class="speaker-country">🇺🇸 EE. UU.</span>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">LM</div>
+          <div class="speaker-name">Luisa Méndez</div>
+          <div class="speaker-org">UNAM</div>
+          <span class="speaker-country">🇲🇽 México</span>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">PK</div>
+          <div class="speaker-name">Peter Koch</div>
+          <div class="speaker-org">ETH Zürich</div>
+          <span class="speaker-country">🇨🇭 Suiza</span>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">SF</div>
+          <div class="speaker-name">Sofia Ferreira</div>
+          <div class="speaker-org">USP</div>
+          <span class="speaker-country">🇧🇷 Brasil</span>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-avatar">JL</div>
+          <div class="speaker-name">Jorge Llanos</div>
+          <div class="speaker-org">UNMSM</div>
+          <span class="speaker-country">🇵🇪 Perú</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================
+       SECCIÓN: PROGRAMA / AGENDA
+       Modifica días, horarios y charlas
+  ============================= -->
+  <section id="programa">
+    <div class="section">
+      <p class="section-tag">Programa</p>
+      <h2>Agenda del evento</h2>
+      <p class="section-lead">Tres días de conferencias, talleres y paneles de discusión.</p>
+
+      <div class="agenda">
+        <!-- DÍA 1 -->
+        <div class="agenda-day">
+          <div class="agenda-day-header">
+            <h3>Día 1 — Inauguración</h3>
+            <span>Jueves 5 de Marzo</span>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">09:00 AM</div>
+            <div class="agenda-talk">
+              <h4>Apertura del Simposio</h4>
+              <p>Palabras de bienvenida e introducción al evento.</p>
+              <span class="agenda-tag tag-keynote">Inauguración</span>
+            </div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">10:00 AM</div>
+            <div class="agenda-talk">
+              <h4>Keynote: El futuro de la biología sintética en LATAM</h4>
+              <p>Ana Bermúdez · Universidad de Buenos Aires</p>
+              <span class="agenda-tag tag-keynote">Keynote</span>
+            </div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">02:00 PM</div>
+            <div class="agenda-talk">
+              <h4>Workshop: Herramientas de diseño génico</h4>
+              <p>Carlos Ríos · MIT</p>
+              <span class="agenda-tag tag-workshop">Workshop</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DÍA 2 -->
+        <div class="agenda-day">
+          <div class="agenda-day-header">
+            <h3>Día 2 — Investigación</h3>
+            <span>Viernes 6 de Marzo</span>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">10:00 AM</div>
+            <div class="agenda-talk">
+              <h4>Conferencia: Aplicaciones en medicina</h4>
+              <p>Luisa Méndez · UNAM</p>
+              <span class="agenda-tag tag-keynote">Keynote</span>
+            </div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">03:00 PM</div>
+            <div class="agenda-talk">
+              <h4>Panel: Ética en biotecnología</h4>
+              <p>Todos los ponentes</p>
+              <span class="agenda-tag tag-panel">Panel</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DÍA 3 -->
+        <div class="agenda-day">
+          <div class="agenda-day-header">
+            <h3>Día 3 — Clausura</h3>
+            <span>Sábado 7 de Marzo</span>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">10:00 AM</div>
+            <div class="agenda-talk">
+              <h4>Presentaciones de estudiantes</h4>
+              <p>Seleccionados del programa de abstracts.</p>
+              <span class="agenda-tag tag-workshop">Estudiantes</span>
+            </div>
+          </div>
+          <div class="agenda-item">
+            <div class="agenda-time">04:00 PM</div>
+            <div class="agenda-talk">
+              <h4>Ceremonia de clausura y próximos pasos</h4>
+              <p>Anuncio de edición 2027.</p>
+              <span class="agenda-tag tag-keynote">Clausura</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================
+       SECCIÓN: EVENTOS DESTACADOS
+       Modifica las tarjetas de eventos pasados/futuros
+  ============================= -->
+  <section id="eventos">
+    <div class="section">
+      <p class="section-tag">Actividades</p>
+      <h2>Eventos destacados</h2>
+      <p class="section-lead">Conoce nuestras actividades pasadas y futuras.</p>
+
+      <div class="events-grid">
+        <!-- TARJETA EVENTO — Duplica para agregar más -->
+        <div class="event-card">
+          <div class="event-img">
+            <span class="material-icons-round">science</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-pill">Internacional</span>
+              <span class="event-pill">Marzo 2026</span>
+            </div>
+            <h3>I Simposio Internacional 2026</h3>
+            <p>Primera edición del simposio internacional para la región LATAM, con ponentes de más de 7 países.</p>
+            <a href="#" class="event-link">Ver más <span class="material-icons-round" style="font-size:16px">arrow_forward</span></a>
+          </div>
+        </div>
+        <div class="event-card">
+          <div class="event-img">
+            <span class="material-icons-round">forum</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-pill">Workshop</span>
+              <span class="event-pill">Nov. 2025</span>
+            </div>
+            <h3>Ciclo de foros de discusión 2025</h3>
+            <p>Ponencias abiertas tipo Journal Club sobre temas actuales. Dirigido a la comunidad y público general.</p>
+            <a href="#" class="event-link">Ver más <span class="material-icons-round" style="font-size:16px">arrow_forward</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================
+       SECCIÓN: EQUIPO
+       Agrega o quita miembros del equipo
+  ============================= -->
+  <section id="equipo">
+    <div class="section">
+      <p class="section-tag">Equipo Organizador</p>
+      <h2>Las personas detrás del simposio</h2>
+
+      <div class="team-grid">
+        <!-- TARJETA EQUIPO — Duplica este bloque -->
+        <div class="team-card">
+          <div class="team-avatar">MR</div>
+          <div class="team-name">Marco Ramos</div>
+          <div class="team-role">Director General</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">VP</div>
+          <div class="team-name">Valeria Pérez</div>
+          <div class="team-role">Coordinación Académica</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">DT</div>
+          <div class="team-name">Diego Torres</div>
+          <div class="team-role">Logística</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">AM</div>
+          <div class="team-name">Andrea Mora</div>
+          <div class="team-role">Comunicaciones</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">GS</div>
+          <div class="team-name">Gabriel Silva</div>
+          <div class="team-role">Tecnología</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">LC</div>
+          <div class="team-name">Laura Castillo</div>
+          <div class="team-role">Relaciones Internacionales</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       CTA FINAL — Sección de llamada a la acción
+       Modifica texto y link de registro
+  ============================= -->
+  <div class="cta-section">
+    <h2>¿Listo para ser parte del simposio?</h2>
+    <p>Regístrate gratis y únete a la comunidad científica latinoamericana.</p>
+    <a href="https://forms.google.com" class="btn-white" target="_blank">Registrarme Ahora</a>
+  </div>
+
+  <!-- ============================
+       FOOTER
+       Modifica nombre, links y contacto
+  ============================= -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <!-- Nombre y descripción de tu organización -->
+        <div class="logo">Mi Organización</div>
+        <p>Comunidad dedicada a promover la investigación, educación e innovación científica en Latinoamérica.</p>
+      </div>
+      <div>
+        <h4>Simposio</h4>
+        <ul>
+          <li><a href="#programa">Programa</a></li>
+          <li><a href="#ponentes">Ponentes</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="https://forms.google.com" target="_blank">Registro</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <!-- Cambia el correo -->
+          <li><a href="mailto:contacto@mievento.com">contacto@mievento.com</a></li>
+          <li><a href="#">Lima, Perú</a></li>
+          <!-- Links a redes sociales -->
+          <li><a href="https://youtube.com" target="_blank">YouTube</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <!-- Cambia el año y nombre -->
+      <span>© 2026 Mi Organización. Todos los derechos reservados.</span>
+      <span>Hecho con ♥ en Lima, Perú</span>
+    </div>
+  </footer>
+
+</body>
+</html>
